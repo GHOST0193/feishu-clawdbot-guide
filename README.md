@@ -48,6 +48,15 @@ Gateway 启动后，访问 [飞书开放平台](https://open.feishu.cn/app)：
 3. 订阅事件：`im.message.receive_v1`
 4. 保存配置
 
+### 权限配置
+
+在飞书后台 **权限管理** 中申请以下权限（可直接搜索）：
+
+- ✅ `im:message`（获取与发送单聊、群组消息）
+- ✅ `im:message:send_as_bot`（读取用户发给机器人的单聊消息）
+- ✅ `im:message.p2p_msg`（接收机器人单聊消息/事件）
+- ✅ `im:chat`（获取群组信息）
+
 ### 测试
 
 在飞书中找到你的机器人，发送消息：

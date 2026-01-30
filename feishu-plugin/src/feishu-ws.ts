@@ -16,6 +16,7 @@ export type FeishuWsContext = Pick<
 type FeishuMessageEntry = {
   chatId: string;
   senderId: string;
+  chatType?: string;
   text: string;
   messageId: string;
   messageType: string;
@@ -28,12 +29,13 @@ type FeishuMessageEntry = {
 async function handleFeishuMessage(params: {
   chatId: string;
   senderId: string;
+  chatType?: string;
   text: string;
   messageId: string;
   ctx: FeishuWsContext;
   core: PluginRuntime;
 }): Promise<void> {
-  const { chatId, senderId, text, messageId, ctx, core } = params;
+  const { chatId, senderId, chatType, text, messageId, ctx, core } = params;
 
   // 1. 获取账户配置
   const account = ctx.account as {
@@ -97,14 +99,19 @@ async function handleFeishuMessage(params: {
     }
   }
 
-  // 3. 解析路由
+  // 3. 判断是否为群聊
+  // 优先使用飞书事件的 chat_type（p2p 表示私聊）
+  const isGroupChat = chatType ? chatType !== "p2p" : chatId !== senderId;
+  const resolvedChatType = isGroupChat ? "group" : "direct";
+
+  // 解析路由
   const route = core.channel.routing.resolveAgentRoute({
     cfg: ctx.cfg,
     channel: "feishu",
     accountId: account.accountId,
     peer: {
-      kind: "dm",
-      id: senderId,
+      kind: isGroupChat ? "group" : "dm",
+      id: isGroupChat ? chatId : senderId,
     },
   });
 
@@ -112,7 +119,8 @@ async function handleFeishuMessage(params: {
   const timestamp = Date.now();
   const sessionKey = `feishu:${account.accountId}:${chatId}`;
   const from = `feishu:${senderId}`;
-  const to = `user:${senderId}`;
+  // 如果是群聊，回复到群；如果是私聊，回复给用户
+  const to = isGroupChat ? chatId : `user:${senderId}`;
 
   const ctxPayload = core.channel.reply.finalizeInboundContext({
     Body: text,
@@ -122,8 +130,8 @@ async function handleFeishuMessage(params: {
     To: to,
     SessionKey: sessionKey,
     AccountId: route.accountId,
-    ChatType: "direct" as const,
-    ConversationLabel: `飞书用户 ${senderId}`,
+    ChatType: resolvedChatType as const,
+    ConversationLabel: isGroupChat ? `飞书群聊 ${chatId}` : `飞书用户 ${senderId}`,
     SenderName: senderId,
     SenderId: senderId,
     Provider: "feishu" as const,
@@ -247,6 +255,7 @@ export async function startFeishuWs(ctx: FeishuWsContext): Promise<void> {
       try {
         await handleFeishuMessage({
           chatId: last.chatId,
+          chatType: last.chatType,
           senderId: last.senderId,
           text,
           messageId: last.messageId,
@@ -267,7 +276,13 @@ export async function startFeishuWs(ctx: FeishuWsContext): Promise<void> {
     .start({
       eventDispatcher: new Lark.EventDispatcher({}).register({
         "im.message.receive_v1": async (data: {
-          message?: { chat_id?: string; message_id?: string; content?: string; message_type?: string };
+          message?: {
+            chat_id?: string;
+            message_id?: string;
+            content?: string;
+            message_type?: string;
+            chat_type?: string;
+          };
           sender?: { sender_id?: { user_id?: string; open_id?: string }; sender_type?: string };
         }) => {
           const message = data?.message;
@@ -278,6 +293,7 @@ export async function startFeishuWs(ctx: FeishuWsContext): Promise<void> {
           }
 
           const chatId = message.chat_id ?? "";
+          const chatType = message.chat_type ?? "";
           const senderId = sender.sender_id?.user_id ?? sender.sender_id?.open_id ?? "";
           const messageId = message.message_id ?? "";
           const messageType = message.message_type ?? "";
@@ -292,12 +308,13 @@ export async function startFeishuWs(ctx: FeishuWsContext): Promise<void> {
           }
 
           ctx.log?.info?.(
-            `[feishu] 收到消息 chat=${chatId} from=${senderId} type=${messageType} len=${text.length}`,
+            `[feishu] 收到消息 chat=${chatId} from=${senderId} type=${messageType} chatType=${chatType} len=${text.length}`,
           );
 
           try {
             await inboundDebouncer.enqueue({
               chatId,
+              chatType,
               senderId,
               text,
               messageId,

